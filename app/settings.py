@@ -47,7 +47,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'settings.urls'
 
-WSGI_APPLICATION = 'leavemanagement.wsgi.application'
+WSGI_APPLICATION = 'app.wsgi.application'
 
 
 # Database
