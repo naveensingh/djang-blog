@@ -1,0 +1,12 @@
+django==1.7.1
+boto
+django-autoslug
+django-compressor
+django-jsonfield
+djangorestframework
+Fabric
+ipython
+mongoengine
+MySQL-python
+pymongo
+Werkzeug
