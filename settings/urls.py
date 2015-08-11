@@ -1,14 +1,19 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url, include
 from django.contrib import admin
+from rest_framework_nested import routers
 from django.contrib.staticfiles import views
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
-urlpatterns = patterns('',
-                       # Examples:
-                       # url(r'^$', 'app.views.home', name='home'),
-                       # url(r'^blog/', include('blog.urls')),
+from articles.views import ArticlesList
+from index.IndexView import IndexView
 
-                       url(r'^admin/', include(admin.site.urls)),
-                       url(r'^static/(?P<path>.*)$', views.serve),
-                       )
-urlpatterns += staticfiles_urlpatterns()
+router = routers.SimpleRouter()
+router.register(r'articles', ArticlesList)
+
+urlpatterns = [
+    url(r'^$', IndexView.as_view(), name='index'),
+    url(r'^api/v1/', include(router.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+    url(r'^static/(?P<path>.*)$', views.serve),
+]
+
+# urlpatterns += router.urls

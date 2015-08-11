@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="ArticlesApp">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <title>Hello World</title>
+     {% include "includes/styles.html" %}
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <h1>Articles App</h1>
+        </div>
+        <div class="row" ng-view></div>
+    </div>
+
+
+    {% include "includes/scripts.html" %}
+</body>
+</html>
