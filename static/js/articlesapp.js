@@ -1,4 +1,4 @@
-var articlesapp = angular.module("ArticlesApp", ["ngRoute"]);
+var articlesapp = angular.module("ArticlesApp", ["ngRoute", "ngResource"]);
 
 articlesapp.config(["$routeProvider", "$httpProvider", "$locationProvider",
     function($routeProvider, $httpProvider, $locationProvider) {
@@ -9,9 +9,10 @@ articlesapp.config(["$routeProvider", "$httpProvider", "$locationProvider",
                 templateUrl: "/static/partials/list.html",
                 controller: "ArticleController"
             })
-            //.when("/add", {
-            //    templateUrl:"/static/partials/articleform.html"
-            //})
+            .when("/article/add", {
+                controller: "NewArticleController",
+                templateUrl:"/static/partials/articlesform.html"
+            })
             .otherwise('/');
     }
 ]);

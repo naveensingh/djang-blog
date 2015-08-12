@@ -1,10 +1,6 @@
-# from django.conf.urls import patterns, url
-#
-#
-# # Wire up our API using automatic URL routing.
-# from articles.views import ArticlesList
-#
-# urlpatterns = patterns('',
-#                        url(r'^list/$', ArticlesList.as_view(), name='articles'),
-#                        )
-#
+from rest_framework_nested import routers
+from articles.views import AddEditArticlesView, ArticlesReadOnlyView
+
+articles_router = routers.SimpleRouter()
+articles_router.register(r"view", ArticlesReadOnlyView)
+articles_router.register(r"add-edit", AddEditArticlesView)

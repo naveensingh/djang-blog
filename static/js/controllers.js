@@ -1,6 +1,6 @@
 articlesapp.controller("ArticleController", ["$scope", "$routeParams", "$http",
         function($scope, $routeParams, $http){
-            $http.get('/api/v1/articles/?format=json', {msg:'hello word!'}).
+            $http.get('/api/v1/articles/view/?format=json', {msg:'hello word!'}).
                   then(function(response) {
                     $scope.posts = response.data;
                     console.log("Getting the data from api");
@@ -10,25 +10,21 @@ articlesapp.controller("ArticleController", ["$scope", "$routeParams", "$http",
                   });
         }
 ]);
-articlesapp.controller('NewArticleController', function ($scope, $rootScope, Article, $location) {
+articlesapp.controller('NewArticleController', ["$scope", "$rootScope", "Article", "$location",
+    function ($scope, $rootScope, Article, $location) {
         $rootScope.PAGE = "new";
         $scope.article = new Article({
-            firstName: ['', 'text'],
-            lastName:  ['', 'text'],
-            email:     ['', 'email'],
-            homePhone: ['', 'tel'],
-            cellPhone: ['', 'tel'],
-            birthday:  ['', 'date'],
-            website:   ['', 'url'],
-            address:   ['', 'text']
+            title:      ['', 'text'],
+            content:    ['', 'text'],
+            category:   ['', 'text']
         });
 
         $scope.save = function () {
-            if ($scope.newContact.$invalid) {
+            if ($scope.newArticle.$invalid) {
                 $scope.$broadcast('record:invalid');
             } else {
-                $scope.contact.$save();
-                $location.url('/contacts');
+                $scope.article.$save();
+                $location.url('/add');
             }
         };
-    })
+    }]);

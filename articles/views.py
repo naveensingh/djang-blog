@@ -1,30 +1,28 @@
-from django.http import HttpResponse
-from rest_framework.renderers import JSONRenderer
 from rest_framework.response import Response
-from rest_framework import viewsets
+from rest_framework.viewsets import GenericViewSet, ReadOnlyModelViewSet
+from rest_framework import mixins
 from articles.models import Article
-from rest_framework import serializers
+from articles.serializer import AddEditArticleSerializer, ArticleReadOnlySerialiser
 
 
-class JSONResponse(HttpResponse):
-    """
-    An HttpResponse that renders its content into JSON.
-    """
-    def __init__(self, data, **kwargs):
-        content = JSONRenderer().render(data)
-        kwargs['content_type'] = 'application/json'
-        super(JSONResponse, self).__init__(content, **kwargs)
+class AddEditModelViewSet(
+    mixins.CreateModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    GenericViewSet
+):
+    pass
 
 
-class ArticleListSerialiser(serializers.ModelSerializer):
-    class Meta:
-        model = Article
-        fields = ('title', 'content')
-
-
-class ArticlesList(viewsets.ViewSet):
+class AddEditArticlesView(AddEditModelViewSet):
     queryset = Article.objects.all()
-    serializer_class = ArticleListSerialiser
+    serializer_class = AddEditArticleSerializer
+
+
+class ArticlesReadOnlyView(ReadOnlyModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleReadOnlySerialiser
 
     def list(self, request):
         queryset = self.queryset
